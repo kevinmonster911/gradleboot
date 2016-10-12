@@ -1,42 +1,78 @@
 buildscript {
+    ext {
+        springBootPluginVersion = '1.4.1.RELEASE'
+        springBootVersion = '1.4.1.RELEASE'
+        mybatisSpringVersion='1.1.1'
+        dockerPluginVersion='1.2'
+        mapperVersion='3.3.6'
+        pagehelperVersion='4.1.1'
+    }
     repositories {
-    	mavenCentral()
+        mavenLocal()
+        mavenCentral()
+        maven { url "http://repo.spring.io/release" }
+        maven { url "http://repo.spring.io/milestone" }
+        maven { url "http://repo.spring.io/snapshot" }
     }
     dependencies {
-    	classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE")
+    	classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootPluginVersion}")
+        classpath "se.transmode.gradle:gradle-docker:${dockerPluginVersion}"
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+apply plugin: 'docker'
 
+compileJava.dependsOn(processResources)
 jar {
     baseName = 'first-spring-boot'
     version = '0.1.0'
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
+    maven { url "http://repo.spring.io/release" }
+    maven { url "http://repo.spring.io/milestone" }
+    maven { url "http://repo.spring.io/snapshot" }
 }
 
-repositories {
-    mavenCentral()
+configurations {
+    compile.exclude module: "spring-boot-starter-tomcat"
+    compile.exclude module: "velocity-tools"
+    compile.exclude module: "undertow-websockets-jsr"
+    compile.exclude group: 'org.apache.tomcat.embed'
+    compile.exclude group: 'org.apache.tomcat'
+    compile.exclude group: 'org.apache.struts'
+    compile.exclude group: 'com.fasterxml'
+    compile.exclude group: 'org.hibernate'
+    compile.exclude group: 'org.glassfish'
+    compile.exclude group: 'dom4j'
+    compile.exclude group: 'c3p0'
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web") {
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
     	exclude module: "spring-boot-starter-tomcat"
     }
-    compile("org.springframework.boot:spring-boot-starter-jetty")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-    testCompile("junit:junit")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-}
 
+    compile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+    compile 'mysql:mysql-connector-java:5.1.38'
+
+    compile 'org.projectlombok:lombok:1.16.10'
+    compile 'com.zaxxer:HikariCP:2.5.1'
+    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringVersion}")
+
+    compile("com.github.pagehelper:pagehelper:${pagehelperVersion}")
+    compile "tk.mybatis:mapper:${mapperVersion}"
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+}
 
 task wrapper(type: Wrapper) {
     gradleVersion = '3.1'
