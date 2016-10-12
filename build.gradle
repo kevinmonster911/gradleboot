@@ -9,7 +9,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'springboot'
+apply plugin: 'spring-boot'
 
 jar {
     baseName = 'first-spring-boot'
