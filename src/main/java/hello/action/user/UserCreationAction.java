@@ -1,14 +1,12 @@
-package hello.Domain;
+package hello.action.user;
 
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Created by kevinmonster on 16/10/12.
- */
 @Getter
 @Setter
-public class User extends BaseEntity{
+public class UserCreationAction {
+
     private String name;
     private Integer age;
     private String email;

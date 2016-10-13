@@ -1,6 +1,7 @@
 package hello.dao;
 
 import common.MyMapper;
+import hello.Domain.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @Mapper
-public interface UserDao extends MyMapper{
+public interface UserDao extends MyMapper<User>{
 }

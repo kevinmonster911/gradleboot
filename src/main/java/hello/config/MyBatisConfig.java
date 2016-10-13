@@ -9,8 +9,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -24,13 +22,13 @@ import java.util.Properties;
 public class  MyBatisConfig implements TransactionManagementConfigurer {
 
     @Autowired
-    DataSource dataSource;
+    private DataSource dataSource;
 
     @Bean(name = "sqlSessionFactory")
     public SqlSessionFactory sqlSessionFactoryBean() {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
-        bean.setTypeAliasesPackage("tk.mybatis.springboot.model");
+        bean.setTypeAliasesPackage("hello.Domain");
 
         //分页插件
         PageHelper pageHelper = new PageHelper();
@@ -45,12 +43,11 @@ public class  MyBatisConfig implements TransactionManagementConfigurer {
         bean.setPlugins(new Interceptor[]{pageHelper});
 
         //添加XML目录
-        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+//        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
-            bean.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));
+//            bean.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));
             return bean.getObject();
         } catch (Exception e) {
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
@@ -60,7 +57,7 @@ public class  MyBatisConfig implements TransactionManagementConfigurer {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 
-    @Bean
+    @Bean(name="txManager")
     @Override
     public PlatformTransactionManager annotationDrivenTransactionManager() {
         return new DataSourceTransactionManager(dataSource);

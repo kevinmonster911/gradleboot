@@ -16,16 +16,17 @@ buildscript {
     }
     dependencies {
     	classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootPluginVersion}")
-        classpath "se.transmode.gradle:gradle-docker:${dockerPluginVersion}"
+//        classpath "se.transmode.gradle:gradle-docker:${dockerPluginVersion}"
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
-apply plugin: 'docker'
+//apply plugin: 'docker'
 
 compileJava.dependsOn(processResources)
+
 jar {
     baseName = 'first-spring-boot'
     version = '0.1.0'
@@ -72,6 +73,7 @@ dependencies {
     compile("com.github.pagehelper:pagehelper:${pagehelperVersion}")
     compile "tk.mybatis:mapper:${mapperVersion}"
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    testCompile("org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}")
 }
 
 task wrapper(type: Wrapper) {
