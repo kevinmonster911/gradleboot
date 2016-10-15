@@ -3,7 +3,7 @@ package hello.controller;
 import hello.Domain.User;
 import hello.Domain.UserDomain;
 import hello.action.user.UserCreationAction;
-import hello.dao.UserDao;
+import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +26,5 @@ public class UserController extends BaseController {
         User result = userDomain.save(user);
         return result(result);
     }
-
 
 }
