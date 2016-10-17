@@ -72,12 +72,15 @@ dependencies {
     compile 'com.zaxxer:HikariCP:2.5.1'
     compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringVersion}")
 
-    compile("org.springframework.boot:spring-boot-devtools")
+//    compile("org.springframework.boot:spring-boot-devtools")
 //
     compile("com.github.pagehelper:pagehelper:${pagehelperVersion}")
     compile "tk.mybatis:mapper:${mapperVersion}"
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
     testCompile("org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}")
+
+    compile("redis.clients:jedis:2.8.0")
+
 }
 
 task wrapper(type: Wrapper) {
