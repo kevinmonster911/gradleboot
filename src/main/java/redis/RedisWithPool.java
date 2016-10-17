@@ -15,7 +15,7 @@ public class RedisWithPool {
     public static void main(String[] args) {
 
         JedisPoolConfig poolConfig = new JedisPoolConfig();
-        JedisPool pool = new JedisPool(new JedisPoolConfig(), "127.0.0.1", 7002);
+        JedisPool pool = new JedisPool(new JedisPoolConfig(), "127.0.0.1", 7000);
 
         try (Jedis jedis = pool.getResource()) {
             /// ... do stuff here ... for example
