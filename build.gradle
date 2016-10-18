@@ -81,6 +81,10 @@ dependencies {
 
     compile("redis.clients:jedis:2.8.0")
 
+    compile("org.apache.zookeeper:zookeeper:3.4.9") {
+        exclude group:"org.slf4j"
+    }
+
 }
 
 task wrapper(type: Wrapper) {
